@@ -1,0 +1,85 @@
+package lak1;
+
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+
+import javax.swing.event.MenuKeyEvent;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.devtools.v102.input.Input;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class orangekeyboard {
+	WebDriver driver; //define url as x string
+	String x="https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
+
+	@BeforeTest(enabled = true)
+	public void tc1() throws InterruptedException {
+		WebDriverManager.chromedriver().setup();//setup prirequistic
+		driver=new ChromeDriver();//launch chromedriver
+		driver.get(x);//launch url
+		driver.manage().window().maximize();//maximuize window
+		//driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);//wait time
+		System.out.println(driver.getTitle());//get current title n print
+		System.out.println(driver.getCurrentUrl());//get uri n print
+		Thread.sleep(5000);
+	}
+	@Test(enabled = false)
+	public void tc2() throws AWTException, InterruptedException {
+		WebElement dri=driver.findElement(By.name("username"));
+		Actions ac=new Actions(driver);
+		ac.sendKeys(dri,"Admin").build().perform();
+		Thread.sleep(2000);
+		WebElement dripassword=driver.findElement(By.name("password"));
+		ac.sendKeys(dripassword, "admin123").build().perform();
+		Thread.sleep(2000);
+		WebElement driclick=driver.findElement(By.className("oxd-button"));
+		ac.click(driclick).build().perform();
+		Thread.sleep(2000);
+		WebElement dridro=driver.findElement(By.className("oxd-userdropdown"));
+		ac.click(dridro).build().perform();
+		Thread.sleep(2000);
+		WebElement drilogout=driver.findElement(By.linkText("Logout"));
+		ac.click(drilogout).build().perform();
+		Thread.sleep(2000);
+	}
+	@Test(enabled = true)//robot
+	public void tc3() throws AWTException, InterruptedException {
+		WebElement x=driver.findElement(By.name("username"));
+		Robot ro=new Robot();
+		ro.keyPress(KeyEvent.VK_SHIFT);
+		ro.keyPress(KeyEvent.VK_A);
+		ro.keyRelease(KeyEvent.VK_SHIFT);
+		ro.keyPress(KeyEvent.VK_D);
+		ro.keyPress(KeyEvent.VK_M);
+		ro.keyPress(KeyEvent.VK_I);
+		ro.keyPress(KeyEvent.VK_N);
+		Thread.sleep(5000);
+	}
+	@Test(enabled = true)
+	public void tc4() throws AWTException, InterruptedException {
+		WebElement dripassword=driver.findElement(By.name("password"));
+		dripassword.click();
+		Thread.sleep(4000);
+		Robot ro=new Robot();
+		ro.keyPress(KeyEvent.VK_A);
+		ro.keyPress(KeyEvent.VK_D);
+		ro.keyPress(KeyEvent.VK_M);
+		ro.keyPress(KeyEvent.VK_I);
+		ro.keyPress(KeyEvent.VK_N);
+		ro.keyPress(KeyEvent.VK_1);
+		ro.keyPress(KeyEvent.VK_2);
+		ro.keyPress(KeyEvent.VK_3);
+		ro.keyPress(KeyEvent.VK_ENTER);
+		
+	}
+}
