@@ -1,0 +1,59 @@
+package lak1;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class dropdown {
+	WebDriver driver;
+	String url1="https://rahulshettyacademy.com/dropdownsPractise";
+	String url2="https://www.facebook.com";
+	String url3="https://mail.google.com";
+	@BeforeTest
+	public void tc0() throws InterruptedException {
+		WebDriverManager.chromedriver().setup();
+		 driver=new ChromeDriver();//launching the browser
+		    driver.get(url1);//initiating a url
+		    driver.manage().window().maximize();//used to maximize the web. 
+		    Thread.sleep(5000);
+	}
+	@Test(enabled = false)
+	public void staticdd() {
+		WebElement w=driver.findElement(By.name("ctl00$mainContent$DropDownListCurrency"));//dropdown on currency
+		Select dd=new Select(w);
+		//dd.selectByVisibleText("AED");
+		dd.selectByIndex(3);
+		//dd.selectByValue("AFD");
+	}
+	@Test(enabled = false)
+	public void normal() throws InterruptedException {
+		Thread.sleep(5000);
+		WebElement q=driver.findElement(By.xpath("//div[@id='divpaxinfo']"));
+		q.click();
+		WebElement qw=driver.findElement(By.xpath("//span[@id='hrefIncAdt']"));
+		qw.click();
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("//span[@id='hrefIncChd']")).click();
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("//span[@id='hrefIncInf']")).click();
+	}
+	@Test(enabled = true)
+	public void dynamic() throws InterruptedException {
+		driver.findElement(By.id("ctl00_mainContent_ddl_originStation1_CTXT")).click();
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("//a[@text='Bengaluru (BLR)']")).click();
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("//input[@id='ctl00_mainContent_ddl_destinationStation1_CTXT']")).click();
+		Thread.sleep(10000);
+		driver.findElement(By.xpath("(//a[@text='Delhi (DEL)'])[2]")).click();
+	}
+
+}
